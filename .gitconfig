@@ -1,3 +1,6 @@
 [user]
     name = Barbosa885
     email = gustavosports7@gmail.com
+[init]
+    defaultbranch = main
+
