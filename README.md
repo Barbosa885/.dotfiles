@@ -1,5 +1,5 @@
 # dotfiles
-just my setup configuration
+é o configuras
 
 ## SymbolicLink command line
 ``` Powershell
