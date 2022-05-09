@@ -1,6 +1,9 @@
 [user]
-    name = Barbosa885
-    email = gustavosports7@gmail.com
-[init]
-    defaultbranch = main
-
+	name = Barbosa885
+	email = 80699703+Barbosa885@users.noreply.github.com 
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
