@@ -1,5 +1,4 @@
 --[[ lvim is the global options object
-
 Linters should be
 filled in as strings with either
 a global executable or a path to
@@ -10,9 +9,10 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "tokyonight"
-lvim.lsp.diagnostics.virtual_text = false
-vim.g.tokyonight_style = "night"
+lvim.colorscheme = "kanagawa"
+-- lvim.lsp.diagnostics.virtual_text = false
+-- vim.g.tokyonight_style = "night"
+
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -84,7 +84,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- generic LSP settings
 
 -- ---@usage disable automatic installation of servers
--- lvim.lsp.automatic_servers_installation = false
+lvim.lsp.automatic_servers_installation = true
 
 -- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 -- ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
@@ -152,7 +152,14 @@ lvim.plugins = {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
-  { "preservim/vimux" },
+  { "prettier/vim-prettier" },
+
+  -- tpope
+  { "tpope/vim-fugitive" },
+  { "tpope/vim-surround" },
+  { "tpope/vim-repeat" },
+  { "hrsh7th/nvim-compe" },
+  { "tribela/vim-transparent" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
