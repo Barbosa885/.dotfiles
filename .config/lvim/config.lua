@@ -86,16 +86,17 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- ---@usage disable automatic installation of servers
 lvim.lsp.automatic_servers_installation = true
 
--- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
--- ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
--- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
--- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("pyright", opts)
+---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
+---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright", "tailwindcss" })
+local opts = {} -- check the lspconfig documentation for a list of all possible options
+require("lvim.lsp.manager").setup("tailwindcss", opts)
+require("lvim.lsp.manager").setup("pyright", opts)
 
--- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
--- ---`:LvimInfo` lists which server(s) are skiipped for the current filetype
+---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
+---`:LvimInfo` lists which server(s) are skiipped for the current filetype
 -- vim.tbl_map(function(server)
---   return server ~= "emmet_ls"
+--   return server ~= "tailwindcss"
 -- end, lvim.lsp.automatic_configuration.skipped_servers)
 
 -- -- you can set a custom on_attach function that will be used for all the language servers
@@ -104,6 +105,7 @@ lvim.lsp.automatic_servers_installation = true
 --   local function buf_set_option(...)
 --     vim.api.nvim_buf_set_option(bufnr, ...)
 --   end
+
 --   --Enable completion triggered by <c-x><c-o>
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
@@ -124,7 +126,7 @@ lvim.lsp.automatic_servers_installation = true
 --   },
 -- }
 
--- -- set additional linters
+-- set additional linters
 -- local linters = require "lvim.lsp.null-ls.linters"
 -- linters.setup {
 --   { command = "flake8", filetypes = { "python" } },
