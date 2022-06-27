@@ -125,6 +125,16 @@ wconf() {
  v "/mnt/c/Users/gusta/.config/wezterm/wezterm.lua" 
 }
 #============================================================
+gadd() {
+  git add "$1" 
+  if [ "$2" != ""]
+  then 
+    git commit -m "$2"
+  else
+    git commit -m update
+  fi
+  git push
+}
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
