@@ -143,17 +143,6 @@ gadd() {
   fi 
     git push
 }
-#============================================================
-gall() {
-  git add . 
-  if [ "$1" == "" ]
-  then 
-    git commit -m "$1"
-  else
-    git commit -m update
-  fi
-  git push
-}
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
