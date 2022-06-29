@@ -13,7 +13,6 @@ lvim.colorscheme = "kanagawa"
 -- lvim.lsp.diagnostics.virtual_text = false
 -- vim.g.tokyonight_style = "night"
 
-
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
 -- add your own keymapping
@@ -88,10 +87,11 @@ lvim.lsp.automatic_servers_installation = true
 
 ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright", "tailwindcss" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright", "tailwindcss", "jdtls" })
 local opts = {} -- check the lspconfig documentation for a list of all possible options
 require("lvim.lsp.manager").setup("tailwindcss", opts)
 require("lvim.lsp.manager").setup("pyright", opts)
+require("lvim.lsp.manager").setup("jdtls", opts)
 
 ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
 ---`:LvimInfo` lists which server(s) are skiipped for the current filetype
@@ -176,5 +176,7 @@ map sh <C-w>h
 map sk <C-w>k
 map sj <C-w>j
 map sl <C-w>l
+
+autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 
 ]])
