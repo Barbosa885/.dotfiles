@@ -110,13 +110,47 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias v="/home/barbosa/.local/bin/lvim"
+#============================================================
 alias master="/mnt/c/Users/gusta/Documents/projects/"
-alias ide="./ide.sh"
-alias win="/mnt/c/Users/gusta"
+#============================================================
+alias HOME="/mnt/c/Users/gusta"
+#============================================================
 
+# TMUX
+alias -g ide="f(){
+  tmux | "~/./ide.sh"
+};f"
+#============================================================
+
+# Config Files
+alias zconf="f(){v "~/.zshrc"};f"
+#============================================================
+wconf() {
+ v "/mnt/c/Users/gusta/.config/wezterm/wezterm.lua" 
+}
+#============================================================
+
+# GIT
+alias pull="git pull"
+#============================================================
+gadd() {
+  git add $1 
+  if [ -n "$2" ]
+  then
+    git commit -m "$2"
+  else 
+    git commit -m update
+  fi 
+    git push
+}
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
