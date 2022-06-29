@@ -115,21 +115,40 @@ alias master="/mnt/c/Users/gusta/Documents/projects/"
 #============================================================
 alias HOME="/mnt/c/Users/gusta"
 #============================================================
-alias zconf="f(){v "~/.zshrc"};f"
-#============================================================
+
+# TMUX
 alias -g ide="f(){
   tmux | "~/./ide.sh"
 };f"
+#============================================================
+
+# Config Files
+alias zconf="f(){v "~/.zshrc"};f"
 #============================================================
 wconf() {
  v "/mnt/c/Users/gusta/.config/wezterm/wezterm.lua" 
 }
 #============================================================
+
+# GIT
+alias pull="git pull"
+#============================================================
 gadd() {
   git add $1 
-  if [ "$2" != ""]
-  then 
+  if [ -n "$2" ]
+  then
     git commit -m "$2"
+  else 
+    git commit -m update
+  fi 
+    git push
+}
+#============================================================
+gall() {
+  git add . 
+  if [ "$1" == "" ]
+  then 
+    git commit -m "$1"
   else
     git commit -m update
   fi
