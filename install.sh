@@ -33,4 +33,4 @@ sudo chsh -s $(which zsh) $USER
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 
 # install plugins
-nvim --headless +PackerCompile +PackerUpdate +qa
+nvim --headless +PackerSync +qa 
