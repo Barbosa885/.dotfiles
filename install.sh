@@ -32,5 +32,9 @@ sudo chsh -s $(which zsh) $USER
 # bundle zsh plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 
+# install packer 
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
 # install plugins
 nvim --headless +PackerSync +qa 
