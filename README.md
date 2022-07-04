@@ -1,3 +1,7 @@
+# Steps
+- Clone the repo ```git git clone https://github.com/Barbosa885/.dotfiles```
+- Run ```bash install.sh```
+
 # dotfiles
 é o configuras
 
