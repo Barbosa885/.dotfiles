@@ -1,6 +1,7 @@
 # Steps
 - Clone the repo ```git git clone https://github.com/Barbosa885/.dotfiles```
-- Run ```bash install.sh```
+- Go to `2022` branch
+- Run ```install.sh```
 
 # dotfiles
 é o configuras
