@@ -23,8 +23,11 @@ stow git
 stow nvim
 stow p10k
 
+# add zsh as a login shell
+command -v zsh | sudo tee -a /etc/shells
+
 # use zsh as my default shell
-chsh -s $(which zsh)
+chsh -s $(which zsh) $USER
 
 # bundle zsh plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
