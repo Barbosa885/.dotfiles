@@ -29,6 +29,9 @@ command -v zsh | sudo tee -a /etc/shells
 # use zsh as my default shell
 chsh -s $(which zsh) $USER
 
+# load zsh
+exec zsh
+
 # bundle zsh plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 
