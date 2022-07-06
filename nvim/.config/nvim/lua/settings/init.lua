@@ -21,3 +21,5 @@ set.cursorline = true
 set.nu = true
 
 set.hidden = true
+
+set.mouse = "a"

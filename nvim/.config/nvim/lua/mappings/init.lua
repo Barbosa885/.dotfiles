@@ -5,3 +5,4 @@ vim.g.mapleader = " "
 
 map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 map("n", "<leader>w", ":w<CR>", opts)
+
