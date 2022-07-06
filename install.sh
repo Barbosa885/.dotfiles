@@ -1,11 +1,11 @@
 # install nix
-echo "🚀 Installing nix"
+echo "🚀 Installing nix......"
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
 # source nix 
 . ~/.nix-profile/etc/profile.d/nix.sh
 
-echo "🚀 Installing packages"
+echo "🚀 Installing packages......"
 # install packages
 packages=(
   zsh 
@@ -21,7 +21,7 @@ packages=(
 
 for package in ${packages[@]}
 do 
-  echo "📦 Installing $package"
+  echo "📦 Installing $package \n"
   nix-env -iA nixpkgs.$package
 done
 
@@ -42,21 +42,21 @@ done
   
 
 # add zsh as a login shell
-echo "🚀 Configuring ZSH as default shell"
+echo "🚀 Configuring ZSH as default shell....."
 command -v zsh | sudo tee -a /etc/shells
 chsh -s $(which zsh) $USER
 
 # bundle zsh plugins
-echo "🎁 Bundle antibody plugins"
+echo "🎁 Bundling antibody plugins....."
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 
 # install packer
-echo "🚀 Installing nvim plugin manager"
+echo "🚀 Installing nvim plugin manager....."
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 	~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # install plugins
-echo "🔨 Installing nvim plugins"
+echo "🔨 Installing nvim plugins....."
 nvim --headless +PackerSync +qa 
 
 # execute zsh
