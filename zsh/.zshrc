@@ -14,7 +14,7 @@ source ~/.zsh_plugins.sh
 # aliases
 alias v="nvim"
 #============================================================
-alias master="cd /mnt/c/Users/gusta/Documents/projects/"
+alias master="cd /mnt/c/Users/gusta/Documents/projects/master-front"
 #============================================================
 alias HOME="cd /mnt/c/Users/gusta"
 #============================================================
@@ -44,6 +44,10 @@ gadd() {
   fi 
     git push
 }
+#============================================================
+
+# CLIPBOARD
+alias clip="clip.exe"
 
 # Use nix
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi 
@@ -51,4 +55,5 @@ if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-if [ -e /home/barbosa/.nix-profile/etc/profile.d/nix.sh ]; then . /home/barbosa/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/p10k/.p10k.zsh.
+[[ ! -f ~/.dotfiles/p10k/.p10k.zsh ]] || source ~/.dotfiles/p10k/.p10k.zsh
