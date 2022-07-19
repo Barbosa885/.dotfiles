@@ -1,4 +1,7 @@
-# dotfiles
+# Steps
+- Goto `2022` branch and read the next steps there, i'm lazy to rewrite here
+
+# Dotfiles
 é o configuras
 
 ## SymbolicLink command line on windows
