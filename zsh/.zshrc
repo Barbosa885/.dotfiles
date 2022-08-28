@@ -18,6 +18,10 @@ alias master="cd /mnt/c/Users/gusta/Documents/projects/master-front"
 #============================================================
 alias HOME="cd /mnt/c/Users/gusta"
 #============================================================
+alias projects="cd /mnt/c/Users/gusta/Documents/projects"
+#============================================================
+alias t="tmux"
+#============================================================
 
 # TMUX
 alias ide="f(){
