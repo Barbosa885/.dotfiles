@@ -17,9 +17,9 @@ require("colorscheme-config.neoscroll")
 require("nvim-tree-config")
 
 -- Lsp
-require("lsp-config.language-servers")
 require("lsp-config.nvim-cmp")
 require("lsp-config.lsp-installer")
+require("lsp-config.autopairs")
 
 -- Treesitter
 require("ts-config")
