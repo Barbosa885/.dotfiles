@@ -5,16 +5,10 @@ return require('packer').startup(function()
   use "tpope/vim-surround"
   use "tpope/vim-fugitive"
 
-  -- Installer
-  use "wbthomason/packer.nvim" 
-
   --Themes
   use "folke/tokyonight.nvim"
   use "navarasu/onedark.nvim"
-  use 'karb94/neoscroll.nvim'
-
-  -- Status line
-  use "nvim-lualine/lualine.nvim"
+  use "karb94/neoscroll.nvim"
 
   --Nvim tree
   use "kyazdani42/nvim-tree.lua" --tree
@@ -24,7 +18,8 @@ return require('packer').startup(function()
         require('Navigator').setup()
     end
   }
-  -- Lsp Plugins
+
+  --Lsp Plugins
   use "neovim/nvim-lspconfig" -- Lsp
   use "williamboman/nvim-lsp-installer" -- Lsp installer
   use "hrsh7th/nvim-cmp" -- Autocompletion plugin
@@ -33,10 +28,17 @@ return require('packer').startup(function()
   use "L3MON4D3/LuaSnip" -- Snippets plugin
   use "windwp/nvim-autopairs"
 
-  -- Telescope Plugins
+  --Telescope Plugins
   use "nvim-telescope/telescope.nvim"
   use "nvim-lua/plenary.nvim"
 
-  -- Treesitter plugins
+  --Others
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", }
+  use "github/copilot.vim"
+  use "nvim-lualine/lualine.nvim"
+  use "wbthomason/packer.nvim" 
+  use "folke/trouble.nvim"
+  use "iamcco/markdown-preview.nvim"
+  use "christoomey/vim-tmux-navigator"
+
 end)
