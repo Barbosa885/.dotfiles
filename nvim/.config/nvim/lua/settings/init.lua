@@ -25,6 +25,7 @@ set.hidden = true
 set.mouse = "a"
 
 set.clipboard = "unnamedplus"
+set.autoread = true
 
 -- vim.g.clipboard = {
 --   name = "win32yank-wsl",
