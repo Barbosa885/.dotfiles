@@ -8,7 +8,6 @@ return require('packer').startup(function()
   --Themes
   use "folke/tokyonight.nvim"
   use "navarasu/onedark.nvim"
-  use "karb94/neoscroll.nvim"
 
   --Nvim tree
   use "kyazdani42/nvim-tree.lua" --tree
@@ -26,7 +25,10 @@ return require('packer').startup(function()
   use "hrsh7th/cmp-nvim-lsp" -- LSP source for nvim-cmp
   use "saadparwaiz1/cmp_luasnip" -- Snippets source for nvim-cmp
   use "L3MON4D3/LuaSnip" -- Snippets plugin
+
+  --Autopairs
   use "windwp/nvim-autopairs"
+  use "windwp/nvim-ts-autotag" -- Autotag plugin
 
   --Telescope Plugins
   use "nvim-telescope/telescope.nvim"
@@ -40,5 +42,6 @@ return require('packer').startup(function()
   use "folke/trouble.nvim"
   use "iamcco/markdown-preview.nvim"
   use "christoomey/vim-tmux-navigator"
+  use "karb94/neoscroll.nvim"
 
 end)

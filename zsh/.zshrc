@@ -64,3 +64,6 @@ if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile
 
 # Add .local bin to path
 export PATH=$PATH:$HOME/.local/bin
+# Set java home
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 
+export JAVA_HOME

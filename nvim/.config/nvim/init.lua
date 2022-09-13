@@ -20,6 +20,7 @@ require("nvim-tree-config")
 require("lsp-config.nvim-cmp")
 require("lsp-config.lsp-installer")
 require("lsp-config.autopairs")
+require("lsp-config.lsp-cfg")
 
 -- Treesitter
 require("ts-config")
