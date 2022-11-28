@@ -67,3 +67,9 @@ export PATH=$PATH:$HOME/.local/bin
 # Set java home
 JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 
 export JAVA_HOME
+
+# Flutter
+export PATH=$HOME/Applications/flutter/bin:$PATH
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
