@@ -11,6 +11,7 @@ map("n", "<leader>fk", ":Telescope keymaps<CR>", opts)
 map("n", "<leader>fc", ":Telescope colorscheme<CR>", opts)
 map("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 map("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
+map("n", "<leader>fd", "<CMD>lua require'telescope-config'.find_dotfiles()<CR>", opts)
 
 -- Navigation
 map("n", "<A-h>", ":NavigatorLeft<CR>", opts)
