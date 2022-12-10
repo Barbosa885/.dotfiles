@@ -8,6 +8,7 @@ return require('packer').startup(function()
   --Themes
   use "folke/tokyonight.nvim"
   use "navarasu/onedark.nvim"
+  use "rebelot/kanagawa.nvim"
 
   --Nvim tree
   use "kyazdani42/nvim-tree.lua" --tree

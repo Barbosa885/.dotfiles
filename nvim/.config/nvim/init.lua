@@ -12,6 +12,7 @@ require("colorscheme-config.tokyonight")
 require("colorscheme-config.lualine")
 require("colorscheme-config.onedark")
 require("colorscheme-config.neoscroll")
+require("colorscheme-config.kanagawa")
 
 -- Nvim Tree
 require("nvim-tree-config")

@@ -11,4 +11,4 @@ set.tokyonight_italic_functions = true
 
 set.tokyonight_italic_functions = true
 
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[ colorscheme tokyonight ]]
