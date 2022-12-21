@@ -73,3 +73,17 @@ export PATH=$HOME/Applications/flutter/bin:$PATH
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+# Start Docker daemon automatically when logging in if not running.
+RUNNING=`ps aux | grep dockerd | grep -v grep`
+if [ -z "$RUNNING" ]; then
+    sudo dockerd > /dev/null 2>&1 &
+    disown
+fi
+
+# Add dotnet to PATH
+export DOTNET_ROOT=$HOME/dotnet
+export PATH=$PATH:$HOME/dotnet
+
+# Adds ruby gems to PATH
+export GEM_HOME="$HOME/.gem"
+export GEM_PATH="$HOME/.gem"
