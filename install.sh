@@ -17,6 +17,7 @@ packages=(
   tmux 
   stow 
   git 
+  kitty
 )
 
 for package in ${packages[@]}
@@ -37,6 +38,7 @@ stow_dirs=(
   rofi
   dunst
   picom
+  kitty
 )
 
 for dirs in ${stow_dirs[@]}
