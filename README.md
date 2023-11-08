@@ -1,10 +1,8 @@
 # Steps
+
 - Clone the repo ```git clone https://github.com/Barbosa885/.dotfiles```
 - Go to `2022` branch
 - Run ```install.sh```
-
-# dotfiles
-é o configuras
 
 ## SymbolicLink command line on windows
 ``` Powershell
