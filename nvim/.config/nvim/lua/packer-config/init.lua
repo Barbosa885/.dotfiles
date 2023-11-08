@@ -38,11 +38,11 @@ return require('packer').startup(function()
 
   --Others
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", }
+  use { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" }
   use "github/copilot.vim"
   use "nvim-lualine/lualine.nvim"
   use "wbthomason/packer.nvim" 
   use "folke/trouble.nvim"
-  use "iamcco/markdown-preview.nvim"
   use "christoomey/vim-tmux-navigator"
   use "karb94/neoscroll.nvim"
 

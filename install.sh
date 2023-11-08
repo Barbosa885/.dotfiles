@@ -32,6 +32,11 @@ stow_dirs=(
   git
   nvim
   p10k
+  i3
+  polybar
+  rofi
+  dunst
+  picom
 )
 
 for dirs in ${stow_dirs[@]}

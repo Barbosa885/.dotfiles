@@ -28,3 +28,5 @@ require("ts-config")
 
 -- Telescope
 require("telescope-config")
+
+require("markdown-config")

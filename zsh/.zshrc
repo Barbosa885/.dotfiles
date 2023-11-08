@@ -68,6 +68,9 @@ export PATH=$PATH:$HOME/.local/bin
 JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 
 export JAVA_HOME
 
+# Android SDK
+export ANDROID_HOME=$HOME/Android/Sdk
+
 # Flutter
 export PATH=$HOME/Applications/flutter/bin:$PATH
 
@@ -87,3 +90,5 @@ export PATH=$PATH:$HOME/dotnet
 # Adds ruby gems to PATH
 export GEM_HOME="$HOME/.gem"
 export GEM_PATH="$HOME/.gem"
+
+. /opt/asdf-vm/asdf.sh
