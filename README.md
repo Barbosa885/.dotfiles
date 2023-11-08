@@ -18,31 +18,30 @@
 
 # My Dotfiles Repository 👨‍💻
 
-Welcome to my dotfiles repository! These dotfiles are tailored for my preferred development environment, featuring configurations for various tools and software I use, including i3, polybar, rofi, neovim, dunst, kitty, tmux, zsh, picom, and Powerlevel10k (p10k).
+Welcome to my dotfiles repository! These dotfiles are tailored for my preferred development environment, featuring configurations for various tools and software I use, including nix, i3, polybar, rofi, neovim, dunst, kitty, tmux, zsh, picom, and Powerlevel10k (p10k).
 
 ## 📁 Contents
 
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Included Configurations](#included-configurations)
-- [License](#license)
+- [Prerequisites](#Prerequisites)
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [Included Configurations](#Included-configurations)
 
 ## 🛠️ Prerequisites
 
 Before using my dotfiles, ensure that you have the following tools and packages installed:
 
-- nix
-- i3 window manager
-- polybar
-- rofi
-- neovim
-- dunst
-- kitty terminal emulator
-- tmux
-- zsh
-- picom (for compositing)
-- Powerlevel10k (p10k) prompt for zsh
+- [nix](https://nixos.org/)
+- [i3 window manager](https://i3wm.org/)
+- [polybar](https://github.com/polybar/polybar)
+- [rofi](https://github.com/davatorium/rofi)
+- [neovim](https://neovim.io/)
+- [dunst](https://github.com/dunst-project/dunst)
+- [kitty terminal emulator](https://sw.kovidgoyal.net/kitty/)
+- [tmux](https://github.com/tmux/tmux)
+- [zsh](https://ohmyz.sh/)
+- [picom (for compositing)](https://github.com/yshui/picom)
+- [Powerlevel10k (p10k) prompt for zsh](https://github.com/romkatv/powerlevel10k)
 
 ## ⚙️ Installation
 
@@ -65,7 +64,20 @@ chmod +x install.sh
 ./install.sh
 ```
 
+## 📝 Included Configurations
+- **nix**: System configurations managed with Nix package manager.
+- **i3**: Window manager configuration files for a tiling window manager.
+- **polybar**: Polybar configuration for a customizable status bar.
+- **rofi**: Rofi configuration for a versatile application launcher and menu.
+- **neovim**: Neovim configuration with plugins for a powerful text editor.
+- **dunst**: Notification daemon configuration for desktop notifications.
+- **kitty**: Kitty terminal emulator configuration for a fast and feature-rich terminal.
+- **tmux**: Tmux configuration for terminal multiplexing.
+- **zsh**: Zsh configuration with the Powerlevel10k prompt.
+- **picom**: Picom configuration for compositing effects and window transparency.
+- **Powerlevel10k (p10k)**: Configuration for a highly customizable and informative Zsh prompt.
+
 ## 🖌️ Customization 
 Feel free to fork this repository and customize the dotfiles to match your preferences. Modify the configuration files, add or remove applications, and make it truly yours.
 
-Happy Hacking! 🚀👨‍💻
+**Happy Hacking!** 🚀👨‍💻
