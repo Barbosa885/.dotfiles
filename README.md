@@ -1,14 +1,5 @@
-# Steps
+<div align="center">
+  <img src="https://github.com/Barbosa885/.dotfiles/assets/80699703/779e5809-c197-430d-8845-487ee6cc58a9" height=300/>
+</div>
 
-- Clone the repo ```git clone https://github.com/Barbosa885/.dotfiles```
-- Go to `2022` branch
-- Run ```install.sh```
-
-## SymbolicLink command line on windows
-``` Powershell
-New-Item -ItemType SymbolicLink -Path "~\Where you want to add" -Target "~\Where is it"
-```
-## Linux
-```Bash
-ln -s <path to the file/folder to be linked> <the path of the link to be created>
-```
+![Static Badge](https://img.shields.io/badge/Config-8A2BE2)
