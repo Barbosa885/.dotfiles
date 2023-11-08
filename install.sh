@@ -1,3 +1,32 @@
+#!/bin/bash
+
+# Detect the system and distribution
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+  OS=$ID
+else
+  echo "Cannot detect the OS. Exiting."
+  exit 1
+fi
+
+# Perform system update based on distribution
+if [ "$OS" == "arch" ]; then
+  # For Arch Linux-based distributions
+  sudo pacman -Syu
+
+elif [ "$OS" == "debian" ]; then
+  # For Debian-based distributions
+  sudo apt-get update
+  sudo apt-get upgrade -y
+
+elif [ "$OS" == "fedora" ]; then
+  sudo dnf upgrade -y
+
+else
+  echo "Unsupported distribution: $OS. Exiting."
+  exit 1
+fi
+
 # install nix
 echo "🚀 Installing nix......"
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
@@ -46,7 +75,7 @@ do
   echo "➦ Creating symlinks for $dirs"
   stow $dirs
 done
-  
+
 
 # add zsh as a login shell
 echo "🚀 Configuring ZSH as default shell....."
@@ -60,7 +89,7 @@ antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 # install packer
 echo "🚀 Installing nvim plugin manager....."
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-	~/.local/share/nvim/site/pack/packer/start/packer.nvim
+  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # install plugins
 echo "🔨 Installing nvim plugins....."
