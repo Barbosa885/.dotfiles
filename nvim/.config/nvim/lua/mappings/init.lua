@@ -25,4 +25,4 @@ map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 map("n", "<leader>w", ":w<CR>", opts)
 map("n", "<leader>q", ":q<CR>", opts)
 map("n", "<leader>md", ":MarkdownPreview<CR>", opts)
-
+map("n", "<leader>xo", ":!xdg-open %<CR>", opts)
