@@ -414,8 +414,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% # 
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # Mute
 
 # Dual Monitors
-exec --no-startup-id xrandr --output HDMI-A-0 --auto --right-of eDP
-exec --no-startup-id xrandr --output HDMI-A-0 --primary
+exec --no-startup-id xrandr --output HDMI-A-0 --auto --above eDP
 
 # Dunst
 exec_always --no-startup-id dunst ~/.config/dunst/dunst.rc
