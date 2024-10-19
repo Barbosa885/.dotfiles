@@ -29,4 +29,8 @@ require("ts-config")
 -- Telescope
 require("telescope-config")
 
+-- Markdown
 require("markdown-config")
+
+-- Vimtex
+require("vimtex-config")

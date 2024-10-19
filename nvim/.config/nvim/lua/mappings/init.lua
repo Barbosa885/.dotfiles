@@ -23,6 +23,17 @@ map("n", "<A-p>", ":NavigatorPrevious<CR>", opts)
 -- Others
 map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 map("n", "<leader>w", ":w<CR>", opts)
-map("n", "<leader>q", ":q<CR>", opts)
 map("n", "<leader>md", ":MarkdownPreview<CR>", opts)
 map("n", "<leader>xo", ":!xdg-open %<CR>", opts)
+
+-- Open latex in zathura
+function ZathuraOpenPdf()
+  local curFile = vim.api.nvim_buf_get_name(0)
+  if curFile == nil then
+    print("No file name")
+    return
+  end
+  curFile = string.gsub(curFile, "%.tex", "%.pdf")
+  vim.cmd("!zathura " .. curFile .. " &")
+end
+map("n", "<leader>zl", ":lua ZathuraOpenPdf()<CR>", opts)

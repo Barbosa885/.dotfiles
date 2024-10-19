@@ -36,7 +36,7 @@ alias wconf="f()(v "/mnt/c/Users/gusta/.config/wezterm/wezterm.lua");f"
 #============================================================
 
 # GIT
-alias pull="git pull"
+alias gpull="git pull"
 #============================================================
 gadd() {
   git add $1 
@@ -50,8 +50,87 @@ gadd() {
 }
 #============================================================
 
+# Network Manager
+
+# no password
+alias cwifi="nmcli device wifi connect $1"
+
+# with password
+password_wifi() {
+  name=$1
+  password=$2
+  nmcli device wifi connect "$name" password "$password"
+}
+alias cpwifi=password_wifi
+
+# List wifi
+alias lwifi="nmcli device wifi list"
+#============================================================
+double_monitor() {
+  # Detectar os nomes dos monitores conectados
+  primary_monitor=$(xrandr | grep "connected primary" | cut -d ' ' -f1)
+  secondary_monitor=$(xrandr | grep "connected" | grep -v " primary" | cut -d ' ' -f1)
+
+  if [ -z "$primary_monitor" ] || [ -z "$secondary_monitor" ]; then
+    echo "Monitores não detectados corretamente. Certifique-se de que ambos os monitores estão conectados."
+    return 1
+  fi
+
+    # Verificar se a posição foi fornecida como argumento
+    position="$1"
+    if [ -z "$position" ]; then
+      position="--same-as"
+    fi
+
+    # Configurar o espelhamento ou a posição relativa
+    xrandr --output "$secondary_monitor" $position "$primary_monitor" --auto
+    echo "Monitores configurados: $primary_monitor $position $secondary_monitor"
+}
+
+single_monitor() {
+  # Detectar todos os monitores conectados
+  monitors=($(xrandr | grep " connected" | cut -d ' ' -f1))
+  
+  if [ ${#monitors[@]} -eq 0 ]; then
+    echo "Nenhum monitor detectado. Certifique-se de que o monitor está conectado."
+    return 1
+  fi
+
+  # Verificar se o monitor primário foi fornecido como argumento
+  selected_primary="$1"
+  if [ -z "$selected_primary" ]; then
+    selected_primary=$(xrandr | grep "connected primary" | cut -d ' ' -f1)
+    if [ -z "$selected_primary" ]; then
+      selected_primary="${monitors[0]}"
+    fi
+  fi
+
+  # Desativar todos os outros monitores
+  for monitor in "${monitors[@]}"; do
+    if [ "$monitor" != "$selected_primary" ]; then
+      xrandr --output "$monitor" --off
+    fi
+  done
+
+  # Ativar apenas o monitor primário
+  xrandr --output "$selected_primary" --primary --auto 
+  echo "Monitor configurado: $selected_primary"
+}
+
+alias dmon=double_monitor
+alias smon=single_monitor
+
+#============================================================
 # CLIPBOARD
 alias clip="clip.exe"
+
+#============================================================
+# Restart NetworkManager
+alias rmn="sudo systemctl restart NetworkManager"
+
+#============================================================
+# Python environment
+alias pyenv="source ~/myvenv/bin/activate"
 
 # Use nix
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi 
@@ -91,4 +170,29 @@ export PATH=$PATH:$HOME/dotnet
 export GEM_HOME="$HOME/.gem"
 export GEM_PATH="$HOME/.gem"
 
+# Adds asdf to PATH
 . /opt/asdf-vm/asdf.sh
+
+# Adds texlive to PATH
+export PATH=$PATH:/usr/local/texlive/2020/bin/x86_64-linux
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export LANG=pt_BR.UTF-8
+
+# Define o arquivo de histórico
+HISTFILE=~/.zsh_history
+
+# Define o tamanho máximo do histórico no arquivo e no terminal
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Salva comandos únicos para evitar duplicatas no histórico
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+
+# Adiciona comandos ao histórico imediatamente
+setopt INC_APPEND_HISTORY
+
+# Compartilha o histórico entre diferentes sessões do terminal
+setopt SHARE_HISTORY
