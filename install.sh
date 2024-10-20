@@ -68,6 +68,10 @@ stow_dirs=(
   dunst
   picom
   kitty
+  zathura
+  waybar
+  wofi
+  swaylock
 )
 
 for dirs in ${stow_dirs[@]}
