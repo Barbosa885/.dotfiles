@@ -1,12 +1,14 @@
 #!/bin/bash
 
-set -e  # Exit immediately if a command exits with a non-zero status
-
 # Detect OS and distribution
 detect_os() {
   if [ -f /etc/os-release ]; then
     . /etc/os-release
-    OS=$ID
+    if [[ "$ID" == "arch" || "$ID" == "endevouros" || "$ID_LIKE" == "arch" ]]; then
+	OS="arch"
+    else
+	OS=$ID
+    fi
   else
     echo "❌ Cannot detect the OS. Exiting."
     exit 1
@@ -16,7 +18,7 @@ detect_os() {
 # Perform system update based on distribution
 system_update() {
   case "$OS" in
-    arch)
+  arch|endevouros)
       echo "🔄 Updating system (Arch)..."
       sudo pacman -Syu --noconfirm
       ;;
@@ -39,6 +41,7 @@ system_update() {
 install_packages() {
   packages=(
     zsh
+    antibody
     paru
     neovim
     gcc
@@ -54,7 +57,21 @@ install_packages() {
   echo "🚀 Installing packages..."
   case "$OS" in
     arch)
-      sudo pacman -S --noconfirm "${packages[@]}"
+      for package in "${packages[@]}"; do
+        # Check if the package is available in pacman
+        if pacman -Si "$package" &> /dev/null; then
+          echo "📦 Installing $package with pacman..."
+          sudo pacman -S --noconfirm "$package"
+        else
+          # If not found in pacman, try installing with yay
+          echo "🔍 $package not found in pacman, trying with yay..."
+          if yay -Si "$package" &> /dev/null; then
+            yay -S --noconfirm "$package"
+          else
+            echo "❌ $package not found in yay either. Skipping."
+          fi
+        fi
+      done
       ;;
     debian|ubuntu)
       sudo apt-get install -y "${packages[@]}"
