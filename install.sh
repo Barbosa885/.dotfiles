@@ -35,22 +35,11 @@ system_update() {
   esac
 }
 
-# Install Nix
-install_nix() {
-  if ! command -v nix &> /dev/null; then
-    echo "🚀 Installing Nix..."
-    sh <(curl -L https://nixos.org/nix/install) --no-daemon
-    . ~/.nix-profile/etc/profile.d/nix.sh
-  else
-    echo "✔️  Nix is already installed."
-  fi
-}
-
-# Install packages using Nix
+# Install packages using native package manager
 install_packages() {
   packages=(
     zsh
-    antibody
+    paru
     neovim
     gcc
     yarn
@@ -59,18 +48,30 @@ install_packages() {
     stow
     git
     kitty
+    curl
   )
 
-  echo "🚀 Installing packages with Nix..."
-  for package in "${packages[@]}"; do
-    echo "📦 Installing $package..."
-    nix-env -iA nixpkgs.$package
-  done
+  echo "🚀 Installing packages..."
+  case "$OS" in
+    arch)
+      sudo pacman -S --noconfirm "${packages[@]}"
+      ;;
+    debian|ubuntu)
+      sudo apt-get install -y "${packages[@]}"
+      ;;
+    fedora)
+      sudo dnf install -y "${packages[@]}"
+      ;;
+    *)
+      echo "❌ Unsupported distribution: $OS. Skipping package installation."
+      ;;
+  esac
 }
 
 # Stow dotfiles
 stow_files() {
   stow_dirs=(
+    hypr
     zsh
     tmux
     git
@@ -108,11 +109,11 @@ set_default_shell() {
 
 # Bundle Zsh plugins using Antibody
 bundle_antibody_plugins() {
-  if [ -f ~/.zsh_plugins.txt ]; then
+  if command -v antibody &> /dev/null && [ -f ~/.zsh_plugins.txt ]; then
     echo "🎁 Bundling Antibody plugins..."
     antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
   else
-    echo "❌ Antibody plugins file not found."
+    echo "❌ Antibody is not installed or plugins file not found."
   fi
 }
 
@@ -137,7 +138,6 @@ sync_nvim_plugins() {
 main() {
   detect_os
   system_update
-  install_nix
   install_packages
   stow_files
   set_default_shell
