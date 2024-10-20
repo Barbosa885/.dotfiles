@@ -6,8 +6,14 @@ set -e  # Exit if any command fails
 detect_os() {
   if [ -f /etc/os-release ]; then
     . /etc/os-release
-    OS=$ID
-    echo "✅ Detected OS: $OS"
+        # Treat EndeavourOS and other Arch-based distributions as Arch
+    if [[ "$ID" == "arch" || "$ID" == "endeavouros" || "$ID_LIKE" == "arch" ]]; then
+      OS="arch"
+        echo "✅ Detected OS: $OS"
+    else
+      OS=$ID
+      echo "✅ Detected OS: $OS"
+    fi
   else
     echo "❌ Cannot detect the OS. Exiting."
     exit 1
