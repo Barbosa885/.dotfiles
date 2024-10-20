@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# Detect OS and distribution
+set -e  # Exit if any command fails
+
+# Detect the system and distribution
 detect_os() {
   if [ -f /etc/os-release ]; then
     . /etc/os-release
-    if [[ "$ID" == "arch" || "$ID" == "endevouros" || "$ID_LIKE" == "arch" ]]; then
-	OS="arch"
-    else
-	OS=$ID
-    fi
+    OS=$ID
+    echo "✅ Detected OS: $OS"
   else
     echo "❌ Cannot detect the OS. Exiting."
     exit 1
@@ -17,17 +16,15 @@ detect_os() {
 
 # Perform system update based on distribution
 system_update() {
+  echo "🔄 Performing system update for $OS..."
   case "$OS" in
-  arch|endevouros)
-      echo "🔄 Updating system (Arch)..."
+    arch)
       sudo pacman -Syu --noconfirm
       ;;
     debian|ubuntu)
-      echo "🔄 Updating system (Debian-based)..."
       sudo apt-get update -y && sudo apt-get upgrade -y
       ;;
     fedora)
-      echo "🔄 Updating system (Fedora)..."
       sudo dnf upgrade -y
       ;;
     *)
@@ -37,12 +34,22 @@ system_update() {
   esac
 }
 
-# Install packages using native package manager
+# Install Nix
+install_nix() {
+  echo "🚀 Installing Nix..."
+  if ! command -v nix &> /dev/null; then
+    sh <(curl -L https://nixos.org/nix/install) --no-daemon
+    . ~/.nix-profile/etc/profile.d/nix.sh
+  else
+    echo "✔️  Nix is already installed."
+  fi
+}
+
+# Install packages using Nix
 install_packages() {
   packages=(
     zsh
     antibody
-    paru
     neovim
     gcc
     yarn
@@ -51,44 +58,18 @@ install_packages() {
     stow
     git
     kitty
-    curl
   )
 
-  echo "🚀 Installing packages..."
-  case "$OS" in
-    arch)
-      for package in "${packages[@]}"; do
-        # Check if the package is available in pacman
-        if pacman -Si "$package" &> /dev/null; then
-          echo "📦 Installing $package with pacman..."
-          sudo pacman -S --noconfirm "$package"
-        else
-          # If not found in pacman, try installing with yay
-          echo "🔍 $package not found in pacman, trying with yay..."
-          if yay -Si "$package" &> /dev/null; then
-            yay -S --noconfirm "$package"
-          else
-            echo "❌ $package not found in yay either. Skipping."
-          fi
-        fi
-      done
-      ;;
-    debian|ubuntu)
-      sudo apt-get install -y "${packages[@]}"
-      ;;
-    fedora)
-      sudo dnf install -y "${packages[@]}"
-      ;;
-    *)
-      echo "❌ Unsupported distribution: $OS. Skipping package installation."
-      ;;
-  esac
+  echo "🚀 Installing packages with Nix..."
+  for package in "${packages[@]}"; do
+    echo "📦 Installing $package..."
+    nix-env -iA nixpkgs.$package
+  done
 }
 
-# Stow dotfiles
+# Stow dotfiles to .config or home
 stow_files() {
   stow_dirs=(
-    hypr
     zsh
     tmux
     git
@@ -107,16 +88,20 @@ stow_files() {
   )
 
   echo "🔗 Creating symlinks with Stow..."
-  for dirs in "${stow_dirs[@]}"; do
-    echo "➦ Stowing $dirs..."
-    stow $dirs
+  for dir in "${stow_dirs[@]}"; do
+    if [[ "$dir" == "zsh" || "$dir" == "p10k" ]]; then
+      stow --target="$HOME" "$dir"
+    else
+      stow --target="$HOME/.config" "$dir"
+    fi
+    echo "➦ Symlinks created for $dir"
   done
 }
 
-# Configure Zsh as default shell
+# Set Zsh as the default shell
 set_default_shell() {
+  echo "🚀 Configuring Zsh as the default shell..."
   if [ "$SHELL" != "$(command -v zsh)" ]; then
-    echo "🚀 Setting Zsh as default shell..."
     command -v zsh | sudo tee -a /etc/shells
     chsh -s "$(which zsh)" "$USER"
   else
@@ -126,19 +111,19 @@ set_default_shell() {
 
 # Bundle Zsh plugins using Antibody
 bundle_antibody_plugins() {
-  if command -v antibody &> /dev/null && [ -f ~/.zsh_plugins.txt ]; then
-    echo "🎁 Bundling Antibody plugins..."
+  echo "🎁 Bundling Zsh plugins with Antibody..."
+  if [ -f ~/.zsh_plugins.txt ]; then
     antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
   else
-    echo "❌ Antibody is not installed or plugins file not found."
+    echo "❌ Antibody plugins file not found: ~/.zsh_plugins.txt"
   fi
 }
 
 # Install Packer for Neovim
 install_packer() {
+  echo "🚀 Installing Packer for Neovim..."
   packer_dir="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
   if [ ! -d "$packer_dir" ]; then
-    echo "🚀 Installing Packer for Neovim..."
     git clone --depth 1 https://github.com/wbthomason/packer.nvim "$packer_dir"
   else
     echo "✔️  Packer is already installed."
@@ -147,7 +132,7 @@ install_packer() {
 
 # Sync Neovim plugins
 sync_nvim_plugins() {
-  echo "🔨 Syncing Neovim plugins..."
+  echo "🔨 Installing Neovim plugins..."
   nvim --headless +PackerSync +qa
 }
 
@@ -155,6 +140,7 @@ sync_nvim_plugins() {
 main() {
   detect_os
   system_update
+  install_nix
   install_packages
   stow_files
   set_default_shell
@@ -168,3 +154,4 @@ main() {
 
 # Run the main function
 main
+
