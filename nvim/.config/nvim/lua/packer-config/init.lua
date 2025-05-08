@@ -1,46 +1,20 @@
 return require('packer').startup(function()
 
+  --Lsp Plugins
+  use { "neovim/nvim-lspconfig" } -- Configuração básica de LSP
+  use { "williamboman/mason.nvim" } -- Gerenciador de LSPs, linters, etc.
+  use { "williamboman/mason-lspconfig.nvim" }
+  use { "hrsh7th/nvim-cmp" } -- Motor de autocompletar
+  use { "hrsh7th/cmp-nvim-lsp" } -- Fonte de autocompletar LSP
+  use { "L3MON4D3/LuaSnip" } -- Snippets
+  use { "saadparwaiz1/cmp_luasnip" } -- Integração do cmp com LuaSnip
+  use { "folke/trouble.nvim" } -- Diagnósticos
+  use { "ray-x/lsp_signature.nvim" } -- Assinatura de funções
+
   --Tpope
   use "tpope/vim-commentary"
   use "tpope/vim-surround"
   use "tpope/vim-fugitive"
-
-  --Themes
-  use "folke/tokyonight.nvim"
-  use "navarasu/onedark.nvim"
-  use "rebelot/kanagawa.nvim"
-  use {"mcchrish/zenbones.nvim",
-    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
-    -- In Vim, compat mode is turned on as Lush only works in Neovim.
-    requires = "rktjmp/lush.nvim"
-  }
-
-  --Nvim tree
-  use "kyazdani42/nvim-tree.lua" --tree
-  use "kyazdani42/nvim-web-devicons" --icons 
-  use { "numToStr/Navigator.nvim",
-    config = function()
-        require('Navigator').setup()
-    end
-  }
-
-  --Lsp Plugins
-  use "hrsh7th/nvim-cmp" -- Autocompletion plugin
-  use "hrsh7th/cmp-nvim-lsp" -- LSP source for nvim-cmp
-  use "hrsh7th/vim-vsnip" -- Snippets plugin
-  use "saadparwaiz1/cmp_luasnip" -- Snippets source for nvim-cmp
-  use "prisma/vim-prisma" -- Prisma syntax
-  use {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim", -- Mason LSP
-    "neovim/nvim-lspconfig"
-  } -- New Lsp plugin
-  
-
-  --Autopairs
-  use "windwp/nvim-autopairs"
-  use "windwp/nvim-ts-autotag" -- Autotag plugin
 
   --Telescope Plugins
   use "nvim-telescope/telescope.nvim"
@@ -48,13 +22,32 @@ return require('packer').startup(function()
 
   --Others
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", }
-  use { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" }
   use "github/copilot.vim"
   use "nvim-lualine/lualine.nvim"
   use "wbthomason/packer.nvim" 
-  use "folke/trouble.nvim"
+  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+
+  --Nvim tree
+  use "kyazdani42/nvim-web-devicons" --icons 
   use "christoomey/vim-tmux-navigator"
-  use "karb94/neoscroll.nvim"
-  use "lervag/vimtex"
+  use "kyazdani42/nvim-tree.lua" --tree
+  use "nvimdev/dashboard-nvim"
+
+  --Themes
+  use {"morhetz/gruvbox", config = function() vim.cmd.colorscheme("gruvbox") end }
+  use {"folke/tokyonight.nvim", config = function() vim.cmd.colorscheme("tokyonight") end }
+  use {"sainnhe/sonokai", config = function() vim.cmd.colorscheme("sonokai") end }
+  use {"sainnhe/everforest", config = function() vim.cmd.colorscheme("everforest") end }
+  use {"navarasu/onedark.nvim", config = function() vim.cmd.colorscheme("onedark") end }
+  use {"catppuccin/nvim", as = "catppuccin", config = function() vim.cmd.colorscheme("catppuccin") end }
+  use {
+    "zenbones-theme/zenbones.nvim", config = function() vim.cmd.colorscheme("zenbones") end,
+    lazy = false,
+    requires = { "rktjmp/lush.nvim" },
+  }
+  use {
+    "rebelot/kanagawa.nvim", config = function() vim.cmd.colorscheme("kanagawa") end,
+    priority = 1000
+  }
 
 end)

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e  # Exit if any command fails
-
 # Detect the system and distribution
 detect_os() {
   if [ -f /etc/os-release ]; then
@@ -73,6 +71,22 @@ install_packages() {
   done
 }
 
+pacman() {
+  packages={
+    hyprland
+    rofi
+    wofi
+    waybar
+    swaylock
+  }
+
+  echo "🚀 Installing packages with Pacman..."
+  for package in "${packages[@]}"; do
+    echo "📦 Installing $package..."
+    sudo pacman -S "$package"
+  done
+}
+
 # Stow dotfiles to .config or home
 stow_files() {
   stow_dirs=(
@@ -95,11 +109,7 @@ stow_files() {
 
   echo "🔗 Creating symlinks with Stow..."
   for dir in "${stow_dirs[@]}"; do
-    if [[ "$dir" == "zsh" || "$dir" == "p10k" ]]; then
-      stow --target="$HOME" "$dir"
-    else
-      stow --target="$HOME/.config" "$dir"
-    fi
+	  stow "$dir"
     echo "➦ Symlinks created for $dir"
   done
 }
@@ -160,4 +170,3 @@ main() {
 
 # Run the main function
 main
-

@@ -1,4 +1,7 @@
 {
+    "style": {
+      "font-family": "JetBrainsMono Nerd Font Mono"
+    },
     "layer": "top",
     "position": "top",
     "height": 34,

@@ -38,15 +38,9 @@ alias wconf="f()(v "/mnt/c/Users/gusta/.config/wezterm/wezterm.lua");f"
 # GIT
 alias gpull="git pull"
 #============================================================
-gadd() {
-  git add $1 
-  if [ -n "$2" ]
-  then
-    git commit -m "$2"
-  else 
-    git commit -m update
-  fi 
-    git push
+# Commit messages with cody
+ccm() {
+  git diff . | cody chat --stdin -m 'Write a simple and objective commit message for this diff using conventional commit patterns'
 }
 #============================================================
 
@@ -132,6 +126,17 @@ alias rmn="sudo systemctl restart NetworkManager"
 # Python environment
 alias pyenv="source ~/myvenv/bin/activate"
 
+# Yazi change dir
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+
 # Use nix
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi 
 
@@ -165,6 +170,7 @@ fi
 # Add dotnet to PATH
 export DOTNET_ROOT=$HOME/dotnet
 export PATH=$PATH:$HOME/dotnet
+export PATH=$PATH:/home/barbosa/.dotnet/tools
 
 # Adds ruby gems to PATH
 export GEM_HOME="$HOME/.gem"
@@ -179,6 +185,9 @@ export PATH=$PATH:/usr/local/texlive/2020/bin/x86_64-linux
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export LANG=pt_BR.UTF-8
+export LC_CTYPE=pt_BR.UTF-8
+
+export FONTCONFIG_PATH=/etc/fonts
 
 # Define o arquivo de histórico
 HISTFILE=~/.zsh_history

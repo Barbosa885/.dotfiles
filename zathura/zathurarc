@@ -4,6 +4,7 @@ set adjust-open "best-fit"
 
 set adjust-open width
 
+set selection-clipboard clipboard
 
 set recolor false
 set sandbox none

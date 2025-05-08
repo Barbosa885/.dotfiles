@@ -1,5 +1,5 @@
-local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
+local map = vim.api.nvim_set_keymap
 
 vim.g.mapleader = " "
 
@@ -14,14 +14,15 @@ map("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
 map("n", "<leader>fd", "<CMD>lua require'telescope-config'.find_dotfiles()<CR>", opts)
 
 -- Navigation
-map("n", "<A-h>", ":NavigatorLeft<CR>", opts)
-map("n", "<A-l>", ":NavigatorRight<CR>", opts)
-map("n", "<A-k>", ":NavigatorUp<CR>", opts)
-map("n", "<A-j>", ":NavigatorDown<CR>", opts)
-map("n", "<A-p>", ":NavigatorPrevious<CR>", opts)
+map("n", "<A-h>", ":TmuxNavigateLeft<CR>", opts)
+map("n", "<A-l>", ":TmuxNavigateRight<CR>", opts)
+map("n", "<A-k>", ":TmuxNavigateUp<CR>", opts)
+map("n", "<A-j>", ":TmuxNavigateDown<CR>", opts)
+map("n", "<A-p>", ":TmuxNavigatePrevious<CR>", opts)
 
 -- Others
 map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+map("n", "<leader>.", ":NvimTreeToggleFilterDotfiles<CR>", opts)
 map("n", "<leader>w", ":w<CR>", opts)
 map("n", "<leader>md", ":MarkdownPreview<CR>", opts)
 map("n", "<leader>xo", ":!xdg-open %<CR>", opts)

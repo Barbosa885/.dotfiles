@@ -1,3 +1,6 @@
+-- Define default options for mappings
+local opts = { noremap = true, silent = true }
+
 -- LSP Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -21,7 +24,7 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
@@ -37,26 +40,26 @@ local bufopts = { noremap = true, silent = true, buffer = bufnr }
 end
 
 local lsp_flags = {
-  on_attach = on_attach,
-  -- This is the default NVIM 0.7+
   debounce_text_changes = 150,
 }
-require('lspconfig')['pyright'].setup {
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-require('lspconfig')['ts_ls'].setup {
+
+local lspconfig = require('lspconfig')
+
+lspconfig['pyright'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
 }
 
-require('lspconfig')['rust_analyzer'].setup {
+lspconfig['rust_analyzer'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
-  -- Server-specific settings...
   settings = {
     ["rust-analyzer"] = {}
   }
 }
 
-
+lspconfig.omnisharp.setup({
+    cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+    filetypes = { "cs", "vb" },
+    root_dir = require('lspconfig').util.root_pattern("*.sln", "*.csproj"),
+})
