@@ -63,3 +63,15 @@ lspconfig.omnisharp.setup({
     filetypes = { "cs", "vb" },
     root_dir = require('lspconfig').util.root_pattern("*.sln", "*.csproj"),
 })
+
+lspconfig.coq_lsp.setup({
+  on_attach = function(client, bufnr)
+    -- Suas configurações de keymaps aqui
+    local opts = { noremap=true, silent=true, buffer=bufnr }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    -- ... outros keymaps
+  end,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(), -- Se usar nvim-cmp
+})

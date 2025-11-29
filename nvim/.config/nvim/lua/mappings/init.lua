@@ -13,6 +13,14 @@ map("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 map("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
 map("n", "<leader>fd", "<CMD>lua require'telescope-config'.find_dotfiles()<CR>", opts)
 
+-- Trouble (diagnóstico do workspace, do buffer atual, etc.)
+map("n", "<leader>xx", ":Telescope diagnostics<CR>", opts)  -- Abre os diagnósticos do Telescope
+map("n", "<leader>xw", ":Telescope diagnostics theme=dropdown<CR>", opts)  -- Abre em modo de dropdown
+map("n", "<leader>xl", ":Telescope loclist<CR>", opts)  -- Abre o Trouble loclist
+map("n", "<leader>xq", ":Telescope quickfix<CR>", opts)  -- Abre o Trouble qflist
+map("n", "<leader>xs", ":Telescope lsp_document_symbols<CR>", opts)  -- Abre os símbolos do LSP
+map("n", "<leader>xr", ":Telescope lsp_references<CR>", opts)  -- Abre as referências do LSP
+
 -- Navigation
 map("n", "<A-h>", ":TmuxNavigateLeft<CR>", opts)
 map("n", "<A-l>", ":TmuxNavigateRight<CR>", opts)

@@ -27,6 +27,12 @@ set.mouse = "a"
 set.clipboard = "unnamedplus"
 set.autoread = true
 
+vim.o.updatetime = 500
+
+vim.cmd [[
+  autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focus = false })
+]]
+
 -- vim.g.clipboard = {
 --   name = "win32yank-wsl",
 --   copy = {

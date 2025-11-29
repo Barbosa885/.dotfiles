@@ -5,8 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 
 # source plugins
 source ~/.zsh_plugins.sh
@@ -177,7 +176,11 @@ export GEM_HOME="$HOME/.gem"
 export GEM_PATH="$HOME/.gem"
 
 # Adds asdf to PATH
-. /opt/asdf-vm/asdf.sh
+# . /opt/asdf-vm/asdf.sh
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+# append completions to fpath
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 
 # Adds texlive to PATH
 export PATH=$PATH:/usr/local/texlive/2020/bin/x86_64-linux
@@ -205,3 +208,13 @@ setopt INC_APPEND_HISTORY
 
 # Compartilha o histórico entre diferentes sessões do terminal
 setopt SHARE_HISTORY
+export GEMINI_API_KEY="AIzaSyCW9blXnXajx62jI7rcwVeNSEaA8SrY8AI"
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/barbosa/.opam/opam-init/init.zsh' ]] || source '/home/barbosa/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration

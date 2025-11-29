@@ -1,14 +1,19 @@
 return require('packer').startup(function()
 
   --Lsp Plugins
+  use { "mason-org/mason.nvim" } -- Gerenciador de LSPs, linters, etc.
+  use { "mason-org/mason-lspconfig.nvim" }
   use { "neovim/nvim-lspconfig" } -- Configuração básica de LSP
-  use { "williamboman/mason.nvim" } -- Gerenciador de LSPs, linters, etc.
-  use { "williamboman/mason-lspconfig.nvim" }
   use { "hrsh7th/nvim-cmp" } -- Motor de autocompletar
   use { "hrsh7th/cmp-nvim-lsp" } -- Fonte de autocompletar LSP
-  use { "L3MON4D3/LuaSnip" } -- Snippets
   use { "saadparwaiz1/cmp_luasnip" } -- Integração do cmp com LuaSnip
-  use { "folke/trouble.nvim" } -- Diagnósticos
+  use {
+    "folke/trouble.nvim",
+    requires = "nvim-tree/nvim-web-devicons",
+    config = function()
+      require("lsp-config.trouble-config").setup()
+    end
+  }
   use { "ray-x/lsp_signature.nvim" } -- Assinatura de funções
 
   --Tpope
@@ -22,15 +27,26 @@ return require('packer').startup(function()
 
   --Others
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", }
-  use "github/copilot.vim"
   use "nvim-lualine/lualine.nvim"
   use "wbthomason/packer.nvim" 
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+  use({
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!:).
+    run = "make install_jsregexp"
+  }) -- Snippets
+  use "aurum77/live-server.nvim"
+  use { 
+    'whonore/Coqtail',
+    ft = 'coq'
+  }
 
   --Nvim tree
-  use "kyazdani42/nvim-web-devicons" --icons 
+  use "nvim-tree/nvim-web-devicons" --icons 
   use "christoomey/vim-tmux-navigator"
-  use "kyazdani42/nvim-tree.lua" --tree
+  use "nvim-tree/nvim-tree.lua" --tree
   use "nvimdev/dashboard-nvim"
 
   --Themes

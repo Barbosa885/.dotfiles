@@ -45,7 +45,7 @@ install_nix() {
     sh <(curl -L https://nixos.org/nix/install) --no-daemon
     . ~/.nix-profile/etc/profile.d/nix.sh
   else
-    echo "✔️  Nix is already installed."
+    echo "✔️ Nix is already installed."
   fi
 }
 
@@ -68,22 +68,6 @@ install_packages() {
   for package in "${packages[@]}"; do
     echo "📦 Installing $package..."
     nix-env -iA nixpkgs.$package
-  done
-}
-
-pacman() {
-  packages={
-    hyprland
-    rofi
-    wofi
-    waybar
-    swaylock
-  }
-
-  echo "🚀 Installing packages with Pacman..."
-  for package in "${packages[@]}"; do
-    echo "📦 Installing $package..."
-    sudo pacman -S "$package"
   done
 }
 

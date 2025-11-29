@@ -10,12 +10,20 @@ hide_edge_borders smart
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
+font pango: Noto Sans Regular 10
+
+# Opens terminal
 bindsym $mod+Return exec kitty
 bindsym $mod+q kill
-bindsym $mod+d exec --no-startup-id rofi -show drun 
-bindsym $mod+p exec ~/.config/i3/scripts/power_menu.sh
+
+bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun \
+		-config ~/.config/rofi/rofidmenu.rasi
+
+bindsym $mod+Tab exec --no-startup-id rofi -show window \
+		-config ~/.config/rofi/rofidmenu.rasi
+
+bindsym $mod+p exec ~/.config/i3bkp/scripts/powermenu
 bindsym $mod+b exec --no-startup-id kitty -e bluetui
-bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+f fullscreen toggle
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 bindsym $mod+Shift+semicolon layout toggle
@@ -37,6 +45,17 @@ bindsym $mod+Shift+c reload
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
+# keybinding in fancy 
+bindsym F1 exec --no-startup-id ~/.config/i3bkp/scripts/keyhint-2
+
+# Lock the system
+# lock with a picture:
+# bindsym $mod+l exec --no-startup-id i3lock -i  ~/.config/i3/i3-lock-screen.png -p default|win -t
+# lock by blurring the screen:
+bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3bkp/scripts/blur-lock
+# lock in case after sleep
+exec --no-startup-id xss-lock -l ~/.config/i3bkp/scripts/blur-lock
 
 # change focus
 bindsym $mod+k focus up
@@ -91,10 +110,10 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # Instead just do that...
-bindsym $mod+Control+Up resize shrink height 10px or 5ppt
-bindsym $mod+Control+Down resize grow height 10px or 5ppt
-bindsym $mod+Control+Left resize shrink width 10px or 5ppt
-bindsym $mod+Control+Right resize grow width 10px or 5ppt
+bindsym $mod+Ctrl+Up resize shrink height 10px or 5ppt
+bindsym $mod+Ctrl+Down resize grow height 10px or 5ppt
+bindsym $mod+Ctrl+Left resize shrink width 10px or 5ppt
+bindsym $mod+Ctrl+Right resize grow width 10px or 5ppt
 
 # Lock screen
 bindsym $mod+9 exec --no-startup-id blurlock
@@ -104,10 +123,62 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1; picom -b
 
 # Polybar launch script (located ~/.config/polybar/launch.sh) 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
+# bindsym $mod+m bar mode toggle
+
+######################################
+# color settings for bar and windows #
+######################################
+
+# Define colors variables:
+set $darkbluetrans	#08052be6
+set $darkblue		#08052b
+set $lightblue		#5294e2
+set $urgentred		#e53935
+set $white		#ffffff
+set $black		#000000
+set $purple		#e345ff
+set $darkgrey		#383c4a
+set $grey		#b0b5bd
+set $mediumgrey		#8b8b8b
+set $yellowbrown	#e1b700
+
+# define colors for windows:
+#class		        	border		bground		text		indicator	child_border
+client.focused		    	$lightblue	$darkblue	$white		$mediumgrey	$mediumgrey
+client.unfocused	    	$darkblue	$darkblue	$grey		$darkgrey	$darkgrey
+client.focused_inactive		$darkblue	$darkblue	$grey		$black		$black
+client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
+
+bar {
+		font pango: Noto Sans Regular 10
+		status_command i3blocks -c ~/.config/i3/i3blocks.conf
+	    	position bottom
+#	    	i3bar_command i3bar --transparency
+# it could be that you have no primary display set: set one (xrandr --output <output> --primary)
+# reference: https://i3wm.org/docs/userguide.html#_tray_output
+		    #tray_output primary
+		    tray_padding 0
+
+# When strip_workspace_numbers is set to yes,
+# any workspace that has a name of the form
+# “[n][:][NAME]” will display only the name.
+strip_workspace_numbers yes
+##strip_workspace_name no
+
+colors {
+  separator          $purple
+    background         $darkgrey
+    statusline         $white
+#                          		border 		        bg		txt		indicator
+    focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
+    active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
+    inactive_workspace	$darkgrey   		$darkgrey	$grey		$purple
+    urgent_workspace	$urgentred	    	$urgentred	$white		$purple
+}
+}
 
 for_window [class="^.*"] border pixel 1
 
@@ -123,6 +194,12 @@ gaps outer 5
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% # Increase
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% # Decrease
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # Mute
+
+# bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
+# bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10% && notify-send "Brightness - $(brightnessctl -get | cut -d '.' -f 1)%"
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%- && notify-send "Brightness - $(brightnessctl -get | cut -d '.' -f 1)%"
 
 # Dual Monitors
 exec --no-startup-id xrandr --output HDMI-A-0 --auto --above-of eDP
